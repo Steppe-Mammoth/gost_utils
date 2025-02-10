@@ -1,9 +1,7 @@
-import pytest
-
-from gost_utils import utils
+import gost_utils
 
 
-def test_get_value():
+def test_data_get_value():
     data = [
         {
             "params": {
@@ -63,10 +61,9 @@ def test_get_value():
     ]
 
     for i in data:
-        print("r")
         params = i["params"] 
-        result = utils.get_value(**params)
-        print(result)
+        result = gost_utils.data.get_value(**params)
+        print("result: ", result)
         for res_k, res_v in i["response"].items():
             print(result[res_k], " == ", res_v )
             assert result[res_k] == res_v 

@@ -13,7 +13,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="gost_utils",
-    version="0.1.4",                 # Версія
+    version="0.1.5",                 # Версія
     description="Many utils",  # Короткий опис
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
