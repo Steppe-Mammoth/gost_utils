@@ -88,3 +88,61 @@ def get_value(data: dict, key: str|list, default: any = None, last_dict: bool = 
     else:
         return result
 
+
+def set_value(data: dict|list, key: str|list|None, value: any, method: Literal["set", "push", "pushOne", "...push"], createKeys=True) -> any:
+    import copy
+    import json
+
+    """
+    :param data - об'єкт який буде модифікуватись
+    :param key - шлях до потрібного ключа в об'єкта, значеня якого буде змінено. якщо кінечний ключ вкладений в інші то передавати шлях до нього в масиві (наприклад key=["key1", "key2", "key3"])
+    :param value - значення для переданого ключа, це значення буде вставлено до ключа 
+    :param method - метод, який задає інстуркцію як вставляти значення до цього ключа
+    :param createKeys - якщо true то будуть створенні нові об'єкти, якщо в <object> немає якогось поля заданого в <key> 
+    """
+
+    new_data = copy.deepcopy(data)
+
+    # Робота з масивом
+    if isinstance(new_data, list):
+        match method:
+            case "set":
+                new_data = value
+
+            case "push":
+                new_data.append(value)
+
+            case "pushOne":
+                # Додаємо значення тільки якщо його немає в списку
+                if value not in data:
+                    new_data.append(value)
+
+            case "...push":
+                if isinstance(value, Iterable):
+                    new_data.extend(value)
+                else:
+                    raise ValueError
+    
+
+    elif isinstance(new_data, dict):
+        if isinstance(key, str):
+            keys = [key]
+        elif isinstance(key, Iterable):
+            keys = key
+        else:
+            raise ValueError
+        
+        current = new_data
+
+        for idx_k, k in enumerate(keys):
+            ...
+            # if k in current:
+            #     # Останній key
+            #     if idx_k == len(keys) -1:
+            #         if isinstance(current[k], list):
+            #             res = set_value(data=current[k], key=None,method=method, createKeys=createKeys)
+            #             current[k] = res
+            # else:
+            #     current[k]
+
+        
