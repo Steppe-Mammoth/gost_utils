@@ -21,6 +21,8 @@ setup(
     author_email="qwqwqww505@yahoo.com",  # Ваш email
     url="",  # Посилання на репозиторій
     packages=find_packages(include=["utils", "utils.*"]),
+    install_requires=[
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
